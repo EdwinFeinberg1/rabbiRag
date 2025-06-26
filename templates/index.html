@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RabbiGPT</title>
+    <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+    <div class="container">
+        <h1>RabbiGPT</h1>
+        <form id="ask-form">
+            <textarea id="question" placeholder="Ask a question..." required></textarea>
+            <button type="submit">Ask</button>
+        </form>
+        <div id="answer"></div>
+        <ul id="sources"></ul>
+    </div>
+    <script>
+        const form = document.getElementById('ask-form');
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const question = document.getElementById('question').value;
+            const res = await fetch('/api/ask', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ question })
+            });
+            const data = await res.json();
+            document.getElementById('answer').textContent = data.answer;
+            const list = document.getElementById('sources');
+            list.innerHTML = '';
+            data.citations.forEach(c => {
+                const li = document.createElement('li');
+                const a = document.createElement('a');
+                a.href = c.link;
+                a.textContent = c.ref;
+                a.target = '_blank';
+                li.appendChild(a);
+                list.appendChild(li);
+            });
+        });
+    </script>
+</body>
+</html>
