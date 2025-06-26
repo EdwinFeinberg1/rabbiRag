@@ -2,9 +2,13 @@
 
 RabbiGPT is a minimal Retrieval Augmented Generation (RAG) interface that uses a
 subset of texts from [Sefaria](https://www.sefaria.org/) to answer questions.
-Only five books of the Torah are used (Genesis, Exodus, Leviticus, Numbers and
-Deuteronomy) and all text is pulled from the English translation available on
-Sefaria.
+Originally, only five books of the Torah were used, but now it includes:
+
+- **Derekh Hashem (The Way of God)** by Rabbi Moshe Chaim Luzzatto (Ramchal)
+
+- **The Beginning of Wisdom**
+
+All text is pulled from the English translation available on Sefaria.
 
 The application consists of a small Flask server with a simple mobile-friendly
 front end. Queries are embedded with `sentence-transformers` and stored in a
@@ -36,7 +40,7 @@ Sefaria.
 
 ## Notes
 
-- On first run, the server will fetch the five books from Sefaria's API to
+- On first run, the server will fetch the texts from Sefaria's API to
   build the local index.
 - Network access is required for downloading the texts and for OpenAI API calls.
 - The RAG pipeline returns a list of citations with direct links to Sefaria for
