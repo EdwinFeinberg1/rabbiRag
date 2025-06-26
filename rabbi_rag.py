@@ -72,8 +72,14 @@ class RabbiRAG:
         """Generate answer from LLM with citations"""
         context, results = self.build_context(query, top_k)
         prompt = (
-            "You are RabbiGPT, an assistant answering questions using Jewish texts. "
-            "Use the context passages to answer the question. Provide hyperlinks to sources.\n"
+            "You are an expert on Jewish philosophical and ethical works, specifically "
+            "Derech Hashem (The Way of God) by Rabbi Moshe Chaim Luzzatto (Ramchal) and "
+            "The Beginning of Wisdom. Answer the question using the provided passages from these works. "
+            "Maintain the clear, structured approach characteristic of these systematic guides to "
+            "understanding God, creation, providence, human purpose, and ethical living. "
+            "If relevant, note which work and which section the answer comes from "
+            "(e.g., Derekh Hashem on Creation/Providence/Divine Service, or The Beginning of Wisdom). "
+            "Provide hyperlinks to sources.\n"
             f"Context:\n{context}\nQuestion: {query}\nAnswer:"
         )
         completion = llm(prompt)
